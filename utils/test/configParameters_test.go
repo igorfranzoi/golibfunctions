@@ -1,9 +1,8 @@
 package tests
 
 import (
+	"golibfunctions/utils"
 	"testing"
-
-	"github.com/igorfranzoi/golibfunctions/utils"
 
 	"github.com/stretchr/testify/assert"
 )
