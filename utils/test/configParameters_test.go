@@ -1,6 +1,5 @@
 package tests
 
-/*
 import (
 	"testing"
 
@@ -18,4 +17,3 @@ func TestLoadEnvMemSuccess(t *testing.T) {
 	assert.Equal(t, nil, err, "algo aconteceu de incorreto, pois o retorno deve ser NULO quando existir o arquivo .env!")
 
 }
-*/
