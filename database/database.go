@@ -4,7 +4,9 @@ import (
 	"errors"
 
 	//"github.com/igorfranzoi/golibfunctions/config"
-	"github.com/igorfranzoi/base-lib-functions/config"
+	//"github.com/igorfranzoi/base-lib-functions/config"
+	"golibfunctions/config"
+
 	"gorm.io/gorm"
 )
 
