@@ -3,7 +3,7 @@ package database
 import (
 	"strconv"
 
-	"golibfunctions/config"
+	"github.com/igorfranzoi/golibfunctions/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

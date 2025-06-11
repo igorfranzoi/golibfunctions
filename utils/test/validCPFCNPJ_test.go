@@ -1,8 +1,9 @@
 package tests
 
 import (
-	"golibfunctions/utils"
 	"testing"
+
+	"github.com/igorfranzoi/golibfunctions/utils"
 )
 
 func TestValidCPFCNPJSuccess(t *testing.T) {

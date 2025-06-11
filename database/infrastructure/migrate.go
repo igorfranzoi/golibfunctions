@@ -2,9 +2,11 @@ package infrastructure
 
 import (
 	"fmt"
-	"golibfunctions/database"
-	"golibfunctions/database/models"
+
 	"reflect"
+
+	"github.com/igorfranzoi/golibfunctions/database"
+	"github.com/igorfranzoi/golibfunctions/database/models"
 )
 
 func RunningMigrate(constructMethod string) {

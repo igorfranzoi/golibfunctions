@@ -2,9 +2,10 @@ package validation
 
 import (
 	"errors"
-	"golibfunctions/config"
 	"os"
 	"strconv"
+
+	"github.com/igorfranzoi/golibfunctions/config"
 )
 
 var (

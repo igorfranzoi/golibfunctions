@@ -1,10 +1,10 @@
 package utils
 
 import (
-	"golibfunctions/config/validation"
-	"golibfunctions/database"
 	"log"
 
+	"github.com/igorfranzoi/golibfunctions/config/validation"
+	"github.com/igorfranzoi/golibfunctions/database"
 	"github.com/rs/zerolog"
 	"gorm.io/gorm"
 )

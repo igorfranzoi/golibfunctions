@@ -3,7 +3,7 @@ package database
 import (
 	"errors"
 
-	"golibfunctions/config"
+	"github.com/igorfranzoi/golibfunctions/config"
 
 	"gorm.io/gorm"
 )
