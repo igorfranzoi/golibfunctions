@@ -3,7 +3,7 @@ package repositories
 import (
 	"math"
 
-	"github.com/igorfranzoi/base-lib-functions/database/models"
+	"github.com/igorfranzoi/golibfunctions/database/models"
 	"gorm.io/gorm"
 )
 

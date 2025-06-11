@@ -1,4 +1,3 @@
-//module golibfunctions
 module github.com/igorfranzoi/golibfunctions
 
 go 1.23
