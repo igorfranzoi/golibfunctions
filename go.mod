@@ -5,7 +5,6 @@ go 1.23
 toolchain go1.23.10
 
 require (
-	github.com/igorfranzoi/base-lib-functions v0.0.0-20240927003718-0267f5ba4934
 	github.com/joho/godotenv v1.5.1
 	github.com/stretchr/testify v1.10.0
 	gorm.io/gorm v1.30.0
