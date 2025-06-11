@@ -1,4 +1,5 @@
-module golibfunctions
+//module golibfunctions
+module github.com/igorfranzoi/golibfunctions
 
 go 1.22.5
 
