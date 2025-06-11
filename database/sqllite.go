@@ -1,7 +1,7 @@
 package database
 
 import (
-	"golibfunctions/config"
+	"github.com/igorfranzoi/golibfunctions/config"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
