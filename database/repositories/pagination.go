@@ -1,25 +1,36 @@
 package repositories
 
 import (
-	"math"
+	"context"
 
+	"github.com/igorfranzoi/golibfunctions/config"
 	"github.com/igorfranzoi/golibfunctions/database/models"
 	"gorm.io/gorm"
 )
 
-// Retorna um Scope do gorm para ser utilizado na execução da query para paginação
-func Paginate(modelValue interface{}, objPage *models.Pagination, db *gorm.DB) func(db *gorm.DB) *gorm.DB {
-	var totalRows int64
+// Paginate is a generic function that applies pagination to a GORM query.
+// It calculates the total number of records and pages, and then fetches the
+// data for the requested page using LIMIT and OFFSET. The results are
+// populated into the `out` slice, and the `p` pagination struct is updated
+// with the total counts.
+func Paginate[T any](ctx context.Context, db *gorm.DB, p *models.Pagination, out *[]T) (*models.Pagination, error) {
+	var total int64
 
-	db.Model(modelValue).Count(&totalRows)
+	tx := db.WithContext(ctx)
 
-	objPage.TotalRows = totalRows
-
-	totalPages := int(math.Ceil(float64(totalRows) / float64(objPage.GetLimit())))
-
-	objPage.TotalPages = totalPages
-
-	return func(db *gorm.DB) *gorm.DB {
-		return db.Offset(objPage.GetOffSet()).Limit(objPage.Limit).Order(objPage.GetSort())
+	if err := tx.Model(out).Count(&total).Error; err != nil {
+		return nil, err
 	}
+
+	limit := p.GetLimit(&config.DefaultConfig)
+
+	p.TotalRows = total
+	p.TotalPages = int((total + int64(limit) - 1) / int64(limit))
+
+	err := tx.Limit(limit).
+		Offset(p.GetOffset()).
+		Order(p.GetSort()).
+		Find(out).Error
+
+	return p, err
 }

@@ -1,64 +1,47 @@
 package models
 
 import (
-	"os"
-	"strconv"
+	"github.com/igorfranzoi/golibfunctions/config"
 )
 
 type Pagination struct {
-	Limit      int    `json:"limit,omitempty,query:limit"`
-	Page       int    `json:"page,omitempty,query:page"`
-	Sort       string `json:"sort,omitempty,query:sort"`
-	Order      string `json:"order,omitempty,query:order"`
+	Limit      int    `json:"limit,omitempty" form:"limit"`
+	Page       int    `json:"page,omitempty" form:"page"`
+	Sort       string `json:"sort,omitempty" form:"sort"`
+	Order      string `json:"order,omitempty" form:"order"`
 	TotalRows  int64  `json:"total_rows,omitempty"`
 	TotalPages int    `json:"total_pages,omitempty"`
 }
 
-func (objPage *Pagination) GetOffSet() int {
-	return (objPage.GetPage() - 1) * objPage.GetLimit()
+var DefaultPagination = config.DefaultConfig
+
+func (p *Pagination) GetPage() int {
+	if p.Page <= 0 {
+		p.Page = 1
+	}
+	return p.Page
 }
 
-func (objPage *Pagination) GetLimit() int {
-	strPerPage := os.Getenv("ITEMS_PER_PAGE")
-	strMaxPage := os.Getenv("ITEMS_MAX_PAGE")
-
-	maxPage, err := strconv.Atoi(strMaxPage)
-
-	if err == nil || maxPage == 0 {
-		maxPage = 999
+func (p *Pagination) GetLimit(cfg *config.ConfigPagination) int {
+	if p.Limit == 0 {
+		p.Limit = cfg.DefaultLimit
 	}
-
-	perPage, err := strconv.Atoi(strPerPage)
-
-	if err == nil && objPage.Limit == 0 {
-		objPage.Limit = perPage
+	if p.Limit > cfg.MaxLimit {
+		p.Limit = cfg.MaxLimit
 	}
-
-	if objPage.Limit == 0 || objPage.Limit > maxPage {
-		objPage.Limit = 50
-	}
-
-	return objPage.Limit
+	return p.Limit
 }
 
-func (objPage *Pagination) GetPage() int {
-
-	if objPage.Page == 0 {
-		objPage.Page = 1
-	}
-
-	return objPage.Page
+func (p *Pagination) GetOffset() int {
+	return (p.GetPage() - 1) * p.GetLimit(&DefaultPagination)
 }
 
-func (objPage *Pagination) GetSort() string {
-
-	if objPage.Sort == "" {
-		objPage.Sort = "id"
+func (p *Pagination) GetSort() string {
+	if p.Sort == "" {
+		p.Sort = "id"
 	}
-
-	if objPage.Order == "" {
-		objPage.Order = "desc"
+	if p.Order == "" {
+		p.Order = "desc"
 	}
-
-	return objPage.Sort + " " + objPage.Order
+	return p.Sort + " " + p.Order
 }
